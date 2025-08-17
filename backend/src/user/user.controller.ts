@@ -1,0 +1,29 @@
+import { Body, Controller, Get, Param, Patch, UseGuards } from '@nestjs/common';
+import { UserService } from './user.service';
+import { UpdateUserDto } from './dto/update-user-dto';
+import { Roles } from 'src/utils/decorators/role.decorator';
+import { AuthGuard } from 'src/Auth/auth.guard';
+
+@Controller('user')
+@UseGuards(AuthGuard)
+export class UserController {
+  constructor(private readonly userService: UserService) {}
+
+  @Get()
+  @Roles(['admin'])
+  getUsers() {
+    return this.userService.getUsers();
+  }
+
+  @Get(':id')
+  @Roles(['admin'])
+  getUser(@Param('id') id: string) {
+    return this.userService.getUser(id);
+  }
+
+  @Patch(':id')
+  @Roles(['admin'])
+  updateUser(@Body() updateUserDto: UpdateUserDto, @Param('id') id: string) {
+    return this.userService.updateUser(updateUserDto, id);
+  }
+}

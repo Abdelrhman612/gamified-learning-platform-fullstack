@@ -1,0 +1,78 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id             String          @id @default(uuid())
+  name           String
+  email          String          @unique
+  password       String
+  role           String          @default("user")
+  points         Int             @default(0)
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+  // Relations
+  participations Participation[]
+  badges         UserBadge[]
+}
+
+enum role {
+  user
+  admin
+}
+
+model Challenge {
+  id          String   @id @default(uuid())
+  title       String
+  description String
+  type        String
+  startAt     DateTime
+  endAt       DateTime
+  points      Int
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  participations Participation[]
+}
+
+model Participation {
+  id            String   @id @default(uuid())
+  userId        String
+  challengeId   String
+  submission    String?
+  submissionUrl String?
+  status        String
+  awardedPoints Int      @default(0)
+  createdAt     DateTime @default(now())
+
+  // Relations
+  user      User      @relation(fields: [userId], references: [id])
+  challenge Challenge @relation(fields: [challengeId], references: [id])
+}
+
+model Badge {
+  id        String   @id @default(uuid())
+  name      String
+  iconUrl   String
+  createdAt DateTime @default(now())
+
+  // Relations
+  users UserBadge[]
+}
+
+model UserBadge {
+  id        String   @id @default(uuid())
+  userId    String
+  badgeId   String
+  awardedAt DateTime @default(now())
+
+  // Relations
+  user  User  @relation(fields: [userId], references: [id])
+  badge Badge @relation(fields: [badgeId], references: [id])
+}

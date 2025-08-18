@@ -11,7 +11,7 @@ import { Roles } from 'src/utils/decorators/role.decorator';
 import { JwtPayload } from './types/auth.types';
 
 @Injectable()
-export class AuthGuard implements CanActivate {
+export class AuthGuards implements CanActivate {
   constructor(
     private jwtService: JwtService,
     private reflector: Reflector,

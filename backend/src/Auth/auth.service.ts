@@ -8,6 +8,7 @@ import { SignInDto, SignUpDto } from './dto/auth.create.dto';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { generateToken } from 'src/utils/jwt.util';
+import { OAuthUser } from './types/auth.types';
 
 @Injectable()
 export class AuthService {
@@ -63,6 +64,40 @@ export class AuthService {
       role: user.role,
     };
     const token = generateToken(this.jwtService, payload);
-    return { message: 'Login successful', token: token };
+    return { message: 'Login successful', token };
+  }
+  async validateOAuthUser(userData: OAuthUser) {
+    const { username, email } = userData;
+    if (!email) {
+      throw new UnauthorizedException(
+        'Email is required for OAuth authentication',
+      );
+    }
+    let user = await this.prisma.user.findUnique({ where: { email } });
+
+    if (!user) {
+      user = await this.prisma.user.create({
+        data: {
+          name: username,
+          email: email,
+          password: '',
+          role: 'user',
+        },
+      });
+    }
+
+    const payload = {
+      name: user.name,
+      id: user.id,
+      email: user.email,
+      role: user.role,
+    };
+    const token = generateToken(this.jwtService, payload);
+
+    return {
+      message: 'GitHub authentication successful',
+      token,
+      user: { id: user.id, name: user.name, email: user.email },
+    };
   }
 }

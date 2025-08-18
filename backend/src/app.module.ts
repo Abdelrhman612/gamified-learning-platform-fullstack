@@ -3,9 +3,11 @@ import { UserModule } from './user/user.module';
 import { PrismaModule } from './DataBase/prisma.module';
 import { AuthModule } from './Auth/auth.module';
 import { JwtModule } from '@nestjs/jwt';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({}),
     JwtModule.register({
       global: true,
       secret: process.env.JWT_SECRET,

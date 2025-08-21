@@ -9,12 +9,14 @@ import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { generateToken } from 'src/utils/jwt.util';
 import { OAuthUser } from './types/auth.types';
+import { MailsService } from 'src/mails/mails.service';
 
 @Injectable()
 export class AuthService {
   constructor(
     private readonly prisma: PrismaService,
     private jwtService: JwtService,
+    private readonly mailsService: MailsService,
   ) {}
 
   async signUp(signUpDto: SignUpDto) {
@@ -28,7 +30,7 @@ export class AuthService {
     const newUser = await this.prisma.user.create({
       data: { name, email, password: hashedPassword },
     });
-
+    await this.mailsService.sendWelcomeEmail(newUser.email, newUser.name);
     const payload = {
       name: newUser.name,
       id: newUser.id,
@@ -85,7 +87,7 @@ export class AuthService {
         },
       });
     }
-
+    await this.mailsService.sendWelcomeEmail(user.email, user.name);
     const payload = {
       name: user.name,
       id: user.id,

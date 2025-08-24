@@ -1,8 +1,10 @@
 import {
+  Body,
   Controller,
   Delete,
   Get,
   Param,
+  Patch,
   Post,
   UseGuards,
 } from '@nestjs/common';
@@ -10,11 +12,12 @@ import { ChallengeService } from './challenge.service';
 import { CreateChallengeDto } from './dto/create-challenge-dto';
 import { AuthGuards } from 'src/Auth/auth.guard';
 import { Roles } from 'src/utils/decorators/role.decorator';
+import { UpdateChallengeDto } from './dto/update-challenge-dto';
 
 @Controller('challenges')
 @UseGuards(AuthGuards)
 export class ChallengeController {
-  constructor(private readonly challengeService: ChallengeService) {}
+  constructor(private challengeService: ChallengeService) {}
   @Get()
   getChallenges() {
     return this.challengeService.getChallenges();
@@ -25,12 +28,15 @@ export class ChallengeController {
   }
   @Post()
   @Roles(['admin'])
-  createChallenge(createChallengeDto: CreateChallengeDto) {
+  createChallenge(@Body() createChallengeDto: CreateChallengeDto) {
     return this.challengeService.createChallenge(createChallengeDto);
   }
-  @Post(':id')
+  @Patch(':id')
   @Roles(['admin'])
-  updateChallenge(@Param('id') id: string, updateData: CreateChallengeDto) {
+  updateChallenge(
+    @Param('id') id: string,
+    @Body() updateData: UpdateChallengeDto,
+  ) {
     return this.challengeService.updateChallenge(id, updateData);
   }
   @Delete(':id')

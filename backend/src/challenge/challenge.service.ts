@@ -22,14 +22,16 @@ export class ChallengeService {
   }
   async createChallenge(createChallengeDto: CreateChallengeDto) {
     const { title } = createChallengeDto;
+
     const existingChallenge = await this.prisma.challenge.findFirst({
       where: { title: title },
     });
     if (existingChallenge) {
       throw new Error(`Challenge with name ${title} already exists`);
     }
+
     const AddChallenge = await this.prisma.challenge.create({
-      data: createChallengeDto,
+      data: { ...createChallengeDto },
     });
     return AddChallenge;
   }

@@ -6,7 +6,7 @@ import { Participation, Prisma } from '@prisma/client';
 
 @Injectable()
 export class ParticipationsService {
-  constructor(private prisma: PrismaService) {}
+  constructor(private readonly prisma: PrismaService) {}
 
   // Create new participation with a transaction
   async participate(

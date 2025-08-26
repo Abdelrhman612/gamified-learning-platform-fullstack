@@ -6,6 +6,7 @@ import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule } from '@nestjs/config';
 import { ChallengeModule } from './challenge/challenge.module';
 import { GeminiModule } from './gemini/gemini.module';
+import { ParticipationsModule } from './participations/participations.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { GeminiModule } from './gemini/gemini.module';
     ChallengeModule,
     AuthModule,
     GeminiModule,
+    ParticipationsModule,
   ],
   controllers: [],
   providers: [],

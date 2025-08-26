@@ -27,15 +27,16 @@ enum role {
 }
 
 model Challenge {
-  id          String   @id @default(uuid())
-  title       String
-  description String
-  type        String
-  startAt     DateTime
-  endAt       DateTime
-  points      Int
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id                String   @id @default(uuid())
+  title             String
+  description       String
+  type              String
+  startAt           DateTime
+  endAt             DateTime
+  points            Int
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  participantsCount Int      @default(0)
 
   // Relations
   participations Participation[]
@@ -47,7 +48,7 @@ model Participation {
   challengeId   String
   submission    String?
   submissionUrl String?
-  status        String
+  status        String   @default("pending")
   awardedPoints Int      @default(0)
   createdAt     DateTime @default(now())
 

@@ -77,3 +77,10 @@ model UserBadge {
   user  User  @relation(fields: [userId], references: [id])
   badge Badge @relation(fields: [badgeId], references: [id])
 }
+
+model ChatHistory {
+  id        String   @id @default(uuid())
+  sessionId String   @unique
+  history   Json
+  createdAt DateTime @default(now())
+}

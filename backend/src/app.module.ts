@@ -7,6 +7,7 @@ import { ConfigModule } from '@nestjs/config';
 import { ChallengeModule } from './challenge/challenge.module';
 import { GeminiModule } from './gemini/gemini.module';
 import { ParticipationsModule } from './participations/participations.module';
+import { BadgeModule } from './badge/badge.module';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { ParticipationsModule } from './participations/participations.module';
     AuthModule,
     GeminiModule,
     ParticipationsModule,
+    BadgeModule,
   ],
   controllers: [],
   providers: [],

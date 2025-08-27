@@ -9,7 +9,6 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { BadgeService } from './badge.service';
-
 import { Roles } from 'src/utils/decorators/role.decorator';
 import { AuthGuards } from 'src/Auth/auth.guard';
 import { CreateBadgeDto } from './dto/create-badge.dto';

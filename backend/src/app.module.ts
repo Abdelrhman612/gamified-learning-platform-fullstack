@@ -8,6 +8,7 @@ import { ChallengeModule } from './challenge/challenge.module';
 import { GeminiModule } from './gemini/gemini.module';
 import { ParticipationsModule } from './participations/participations.module';
 import { BadgeModule } from './badge/badge.module';
+import { UserBadgeModule } from './user-badge/user-badge.module';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { BadgeModule } from './badge/badge.module';
     GeminiModule,
     ParticipationsModule,
     BadgeModule,
+    UserBadgeModule,
   ],
   controllers: [],
   providers: [],

@@ -12,5 +12,9 @@ async function bootstrap() {
       forbidNonWhitelisted: true,
     }),
   );
+  app.enableCors({
+    origin: process.env.CLIENT_URL,
+    credentials: true,
+  });
 }
 void bootstrap();

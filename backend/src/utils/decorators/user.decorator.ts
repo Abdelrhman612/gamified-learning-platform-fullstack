@@ -5,6 +5,7 @@ type Payload = {
   name: string;
   email: string;
   role: string;
+  points: number;
 };
 
 export const User = createParamDecorator(

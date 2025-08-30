@@ -1,4 +1,4 @@
-import { IsEmail, IsString } from 'class-validator';
+import { IsEmail, IsNumber, IsString } from 'class-validator';
 
 export class SignUpDto {
   @IsString()
@@ -28,4 +28,7 @@ export class MeResponseDto {
 
   @IsString()
   role: string;
+
+  @IsNumber()
+  points: number;
 }

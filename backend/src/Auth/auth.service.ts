@@ -87,7 +87,6 @@ export class AuthService {
         },
       });
     }
-    await this.mailsService.sendWelcomeEmail(user.email, user.name);
     const payload = {
       name: user.name,
       id: user.id,

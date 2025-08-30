@@ -96,10 +96,6 @@ export class AuthService {
     };
     const token = generateToken(this.jwtService, payload);
 
-    return {
-      message: 'GitHub authentication successful',
-      token,
-      user: { id: user.id, name: user.name, email: user.email },
-    };
+    return { token };
   }
 }

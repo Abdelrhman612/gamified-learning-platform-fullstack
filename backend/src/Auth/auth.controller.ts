@@ -1,11 +1,11 @@
-import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Post, Res, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { MeResponseDto, SignInDto, SignUpDto } from './dto/auth.create.dto';
 import { AuthGuards } from './auth.guard';
 import { JwtPayload, OAuthUser } from './types/auth.types';
 import { User } from 'src/utils/decorators/user.decorator';
 import { AuthGuard } from '@nestjs/passport';
-
+import { Response } from 'express';
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
@@ -34,8 +34,11 @@ export class AuthController {
   }
   @Get('github/callback')
   @UseGuards(AuthGuard('github'))
-  async githubCallback(@User() profile: OAuthUser) {
+  async githubCallback(@User() profile: OAuthUser, @Res() res: Response) {
     const user = await this.authService.validateOAuthUser(profile);
-    return { user };
+    const token = user.token;
+    return res.redirect(
+      `${process.env.CORS_ORIGIN}/dashboard?token=${token}`,
+    ) as unknown as Response;
   }
 }

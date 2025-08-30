@@ -1,6 +1,8 @@
 import axios from "axios";
-import { challengesUrl, meUrl, signInUrl, signUpUrl } from "./api";
+import { challengesUrl, meUrl, signInUrl, signUpUrl, userUrl } from "./api";
 import { SignInData, SignUpData } from "./endpoints.interface";
+import { Challenge } from "../challenges/interface.challenges";
+import { User } from "../dashboard/interface.user";
 
 export const SignIn = async ({ email, password }: SignInData) => {
   const res = await axios.post(signInUrl, { email, password });
@@ -13,6 +15,13 @@ export const SignUp = async ({ name, email, password }: SignUpData) => {
   const token = res.data.token;
   localStorage.setItem("token", token);
   return token;
+};
+export const getUsers = async (): Promise<User[]> => {
+  const token = localStorage.getItem("token");
+  const res = await axios.get(userUrl, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  return res.data;
 };
 
 export const GetMe = async () => {
@@ -52,5 +61,26 @@ export const getChallengeById = async (id: string) => {
     },
   });
 
+  return res.data;
+};
+export const createChallenge = async (data: Challenge) => {
+  const res = await axios.post(challengesUrl, data, {
+    headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+  });
+  return res.data;
+};
+
+export const updateChallenge = async (id: string, data: Challenge) => {
+  const res = await axios.patch(`${challengesUrl}/${id}`, data, {
+    headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+  });
+  return res.data;
+};
+
+// حذف تحدي
+export const deleteChallenge = async (id: string) => {
+  const res = await axios.delete(`${challengesUrl}/${id}`, {
+    headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+  });
   return res.data;
 };

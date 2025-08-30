@@ -15,7 +15,7 @@ export default function Header() {
           <Link href="/challenges" className="hover:underline">
             التحديات
           </Link>
-          <Link href="dashboard//user" className="hover:underline">
+          <Link href="/dashboard/user" className="hover:underline">
             لوحة المستخدم
           </Link>
           <Link href="/dashboard/admin" className="hover:underline">

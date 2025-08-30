@@ -3,8 +3,8 @@ export interface Challenge {
   title: string;
   description: string;
   type: string;
-  startAt: string;
-  endAt: string;
+  startAt: string | undefined;
+  endAt: string | undefined;
   points: number;
-  participantsCount: number;
+  participantsCount: number | undefined;
 }

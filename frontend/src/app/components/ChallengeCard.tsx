@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { Challenge } from "../challenges/interface.challenges";
-
 export default function ChallengeCard({
   id,
   title,
@@ -23,8 +22,8 @@ export default function ChallengeCard({
         </div>
 
         <div className="text-xs text-gray-500">
-          📅 {new Date(startAt).toLocaleDateString()} -{" "}
-          {new Date(endAt).toLocaleDateString()}
+          📅 {new Date(startAt as string).toLocaleDateString()} -{" "}
+          {new Date(endAt as string).toLocaleDateString()}
         </div>
 
         <div className="text-xs text-gray-400">

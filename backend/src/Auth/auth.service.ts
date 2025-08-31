@@ -65,8 +65,9 @@ export class AuthService {
       email: email,
       role: user.role,
     };
+    const { id } = payload;
     const token = generateToken(this.jwtService, payload);
-    return { message: 'Login successful', token };
+    return { message: 'Login successful', token, id };
   }
   async validateOAuthUser(userData: OAuthUser) {
     const { username, email } = userData;

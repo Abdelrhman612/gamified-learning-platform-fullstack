@@ -108,7 +108,6 @@ export default function AdminDashboard() {
         <p className="text-gray-400">إدارة المستخدمين والتحديات في النظام</p>
       </header>
 
-      {/* أقسام لوحة التحكم */}
       <div className="flex border-b border-gray-700 mb-6">
         <button
           className={`py-3 px-6 font-medium ${
@@ -132,7 +131,6 @@ export default function AdminDashboard() {
         </button>
       </div>
 
-      {/* قسم التحديات */}
       {activeTab === "challenges" && (
         <section>
           <div className="flex justify-between items-center mb-6">
@@ -147,7 +145,6 @@ export default function AdminDashboard() {
             )}
           </div>
 
-          {/* نموذج الإضافة/التعديل */}
           {showForm && (
             <div className="bg-gray-900 p-6 rounded-xl mb-6 border border-gray-700">
               <div className="flex justify-between items-center mb-4">
@@ -169,7 +166,6 @@ export default function AdminDashboard() {
             </div>
           )}
 
-          {/* قائمة التحديات */}
           <div className="grid gap-4">
             {challenges.length === 0 ? (
               <div className="text-center py-12 bg-gray-900 rounded-xl">
@@ -272,8 +268,6 @@ export default function AdminDashboard() {
           </div>
         </section>
       )}
-
-      {/* قسم المستخدمين */}
       {activeTab === "users" && (
         <section>
           <h2 className="text-2xl font-semibold mb-6">إدارة المستخدمين</h2>

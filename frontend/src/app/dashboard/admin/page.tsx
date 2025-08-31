@@ -66,19 +66,16 @@ export default function AdminDashboard() {
     }
   };
 
-  // بدء تعديل تحدي
   const handleEdit = (challenge: Challenge) => {
     setEditingChallenge(challenge);
     setShowForm(true);
   };
 
-  // إلغاء التعديل/الإضافة
   const handleCancel: () => void = () => {
     setEditingChallenge(null);
     setShowForm(false);
   };
 
-  // حذف تحدي
   const handleDelete = async (id: string) => {
     if (!confirm("هل أنت متأكد من حذف هذا التحدي؟")) return;
     try {

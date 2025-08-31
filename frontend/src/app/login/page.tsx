@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { useState } from "react";
-import { SignIn } from "../lib/endpoints";
+import { SignIn } from "../lib/endpoints/challenge";
 import { getHubCallbackurl } from "../lib/api";
 import { useRouter } from "next/navigation";
 

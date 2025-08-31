@@ -1,26 +1,8 @@
 import axios from "axios";
-import { challengesUrl, meUrl, signInUrl, signUpUrl, userUrl } from "./api";
-import { SignInData, SignUpData } from "./endpoints.interface";
-import { Challenge } from "../challenges/interface.challenges";
-import { User } from "../dashboard/interface.user";
+import { challengesUrl, meUrl, userUrl } from "../api";
+import { Challenge } from "../../challenges/interface.challenges";
+import { User } from "../../dashboard/interface.user";
 
-export const SignIn = async ({ email, password }: SignInData) => {
-  const res = await axios.post(signInUrl, { email, password });
-  const token = res.data.token;
-  const userId = res.data.id;
-  localStorage.setItem("token", token);
-  localStorage.setItem("userId", userId);
-  return {
-    token,
-    userId,
-  };
-};
-export const SignUp = async ({ name, email, password }: SignUpData) => {
-  const res = await axios.post(signUpUrl, { name, email, password });
-  const token = res.data.token;
-  localStorage.setItem("token", token);
-  return token;
-};
 export const getUsers = async (): Promise<User[]> => {
   const token = localStorage.getItem("token");
   const res = await axios.get(userUrl, {

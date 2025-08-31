@@ -9,7 +9,7 @@ import {
   getChallenges,
   getUsers,
   updateChallenge,
-} from "@/app/lib/endpoints";
+} from "@/app/lib/endpoints/challenge";
 import { ChallengeForm } from "@/app/components/ChallengeForm";
 
 export default function AdminDashboard() {

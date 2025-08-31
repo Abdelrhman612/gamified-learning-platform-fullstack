@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import { GetMe, Logout } from "../../lib/endpoints";
+import { GetMe, Logout } from "../../lib/endpoints/challenge";
 import { useRouter } from "next/navigation";
 import { User } from "../interface.user";
 

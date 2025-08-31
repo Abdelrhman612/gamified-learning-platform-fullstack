@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
-import { getChallengeById } from "@/app/lib/endpoints";
+import { getChallengeById } from "@/app/lib/endpoints/challenge";
 import { Challenge } from "../interface.challenges";
 
 export default function ChallengeDetail() {

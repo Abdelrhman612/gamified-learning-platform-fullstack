@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import { getChallenges } from "../lib/endpoints";
+import { getChallenges } from "../lib/endpoints/challenge";
 import ChallengeCard from "../components/ChallengeCard";
 import { Challenge } from "./interface.challenges";
 

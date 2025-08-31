@@ -1,6 +1,6 @@
 import axios from "axios";
 import { signInUrl, signUpUrl } from "../api";
-import { SignInData, SignUpData } from "../endpoints.interface";
+import { SignInData, SignUpData } from "../auth.interface";
 
 export const SignIn = async ({ email, password }: SignInData) => {
   const res = await axios.post(signInUrl, { email, password });

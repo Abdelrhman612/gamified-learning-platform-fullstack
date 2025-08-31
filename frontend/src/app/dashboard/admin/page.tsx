@@ -25,8 +25,6 @@ export default function AdminDashboard() {
   const [showForm, setShowForm] = useState(false);
 
   const router = useRouter();
-
-  // جلب البيانات
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -44,7 +42,6 @@ export default function AdminDashboard() {
     fetchData();
   }, [router]);
 
-  // إضافة/تعديل تحدي
   const handleSubmit = async (data: Partial<Challenge>) => {
     try {
       if (editingChallenge) {

@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { SignUp } from "../lib/endpoints/challenge";
+import { SignUp } from "../lib/endpoints/auth";
 
 export default function RegisterPage() {
   const [name, setName] = useState("");

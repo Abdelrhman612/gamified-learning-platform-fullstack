@@ -1,25 +1,6 @@
 import axios from "axios";
-import { challengesUrl, meUrl, userUrl } from "../api";
+import { challengesUrl } from "../api";
 import { Challenge } from "../../challenges/interface.challenges";
-import { User } from "../../dashboard/interface.user";
-
-export const getUsers = async (): Promise<User[]> => {
-  const token = localStorage.getItem("token");
-  const res = await axios.get(userUrl, {
-    headers: { Authorization: `Bearer ${token}` },
-  });
-  return res.data;
-};
-
-export const GetMe = async () => {
-  const token = localStorage.getItem("token");
-  if (!token) throw new Error("No token found");
-
-  const res = await axios.get(meUrl, {
-    headers: { Authorization: `Bearer ${token}` },
-  });
-  return res.data;
-};
 
 export const Logout = () => {
   localStorage.removeItem("token");

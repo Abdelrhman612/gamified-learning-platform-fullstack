@@ -41,8 +41,8 @@ export default function ChallengeDetail() {
       </div>
 
       <div className="text-gray-400 text-sm">
-        📅 {new Date(challenge.startAt).toLocaleString()} →{" "}
-        {new Date(challenge.endAt).toLocaleString()}
+        📅 {new Date(challenge.startAt as string).toLocaleString()} →{" "}
+        {new Date(challenge.endAt as string).toLocaleString()}
       </div>
 
       <div className="text-gray-400">

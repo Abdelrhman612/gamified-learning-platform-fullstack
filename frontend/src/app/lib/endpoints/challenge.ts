@@ -45,7 +45,6 @@ export const updateChallenge = async (id: string, data: Challenge) => {
   return res.data;
 };
 
-// حذف تحدي
 export const deleteChallenge = async (id: string) => {
   const res = await axios.delete(`${challengesUrl}/${id}`, {
     headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },

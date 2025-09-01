@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Param, Patch, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  UseGuards,
+} from '@nestjs/common';
 import { UserService } from './user.service';
 import { UpdateUserDto } from './dto/update-user-dto';
 import { Roles } from 'src/utils/decorators/role.decorator';
@@ -25,5 +33,11 @@ export class UserController {
   @Roles(['admin'])
   updateUser(@Body() updateUserDto: UpdateUserDto, @Param('id') id: string) {
     return this.userService.updateUser(updateUserDto, id);
+  }
+
+  @Delete(':id')
+  @Roles(['admin'])
+  deleteUser(@Param('id') id: string) {
+    return this.userService.deleteUser(id);
   }
 }

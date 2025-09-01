@@ -1,8 +1,9 @@
 "use client";
 import { useEffect, useState } from "react";
-import { GetMe, Logout } from "../../lib/endpoints/challenge";
+import { Logout } from "../../lib/endpoints/challenge";
 import { useRouter } from "next/navigation";
 import { User } from "../interface.user";
+import { GetMe } from "@/app/lib/endpoints/auth";
 
 export default function DashboardPage() {
   const [user, setUser] = useState<User>();

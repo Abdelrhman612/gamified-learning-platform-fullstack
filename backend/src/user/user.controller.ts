@@ -18,7 +18,6 @@ export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Get()
-  @Roles(['admin'])
   getUsers() {
     return this.userService.getUsers();
   }

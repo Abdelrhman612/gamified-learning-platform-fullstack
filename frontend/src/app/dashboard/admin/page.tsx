@@ -10,7 +10,12 @@ import {
   updateChallenge,
 } from "@/app/lib/endpoints/challenge";
 import { ChallengeForm } from "@/app/components/ChallengeForm";
-import { deleteUser, getUsers, updateUser } from "@/app/lib/endpoints/user";
+import {
+  deleteUser,
+  getUsers,
+  updateUser,
+  getUserById,
+} from "@/app/lib/endpoints/user";
 
 export default function AdminDashboard() {
   const [users, setUsers] = useState<User[]>([]);
@@ -20,11 +25,13 @@ export default function AdminDashboard() {
     null
   );
   const [editingUser, setEditingUser] = useState<User | null>(null);
+  const [viewingUser, setViewingUser] = useState<User | null>(null);
   const [activeTab, setActiveTab] = useState<"users" | "challenges">(
     "challenges"
   );
   const [showForm, setShowForm] = useState(false);
   const [showUserForm, setShowUserForm] = useState(false);
+  const [showUserDetails, setShowUserDetails] = useState(false);
 
   const router = useRouter();
   useEffect(() => {
@@ -43,6 +50,17 @@ export default function AdminDashboard() {
     };
     fetchData();
   }, [router]);
+
+  const handleViewUser = async (id: string) => {
+    try {
+      const user = await getUserById(id);
+      setViewingUser(user);
+      setShowUserDetails(true);
+    } catch (err) {
+      console.error("❌ فشل جلب بيانات المستخدم", err);
+      alert("حدث خطأ أثناء جلب بيانات المستخدم.");
+    }
+  };
 
   const handleSubmit = async (data: Partial<Challenge>) => {
     try {
@@ -105,6 +123,11 @@ export default function AdminDashboard() {
     setShowUserForm(false);
   };
 
+  const handleCloseUserDetails: () => void = () => {
+    setViewingUser(null);
+    setShowUserDetails(false);
+  };
+
   const handleDelete = async (id: string) => {
     if (!confirm("هل أنت متأكد من حذف هذا التحدي؟")) return;
     try {
@@ -127,6 +150,25 @@ export default function AdminDashboard() {
       console.error("❌ فشل حذف المستخدم", err);
       alert("حدث خطأ أثناء حذف المستخدم.");
     }
+  };
+
+  // إنشاء صورة افتراضية بناءً على اسم المستخدم
+  const getAvatarUrl = (name: string) => {
+    const colors = [
+      "bg-blue-500",
+      "bg-purple-500",
+      "bg-red-500",
+      "bg-green-500",
+      "bg-yellow-500",
+    ];
+    const randomColor = colors[Math.floor(Math.random() * colors.length)];
+    return (
+      <div
+        className={`w-20 h-20 ${randomColor} rounded-full flex items-center justify-center text-2xl font-bold text-white`}
+      >
+        {name.charAt(0).toUpperCase()}
+      </div>
+    );
   };
 
   if (loading)
@@ -402,12 +444,79 @@ export default function AdminDashboard() {
             </div>
           )}
 
+          {showUserDetails && viewingUser && (
+            <div className="bg-gray-900 p-6 rounded-xl mb-6 border border-gray-700">
+              <div className="flex justify-between items-center mb-4">
+                <h3 className="text-xl font-medium">تفاصيل المستخدم</h3>
+                <button
+                  onClick={handleCloseUserDetails}
+                  className="text-gray-400 hover:text-white"
+                >
+                  ✕
+                </button>
+              </div>
+              <div className="flex flex-col md:flex-row items-center md:items-start gap-6">
+                <div className="flex-shrink-0">
+                  {getAvatarUrl(viewingUser.name)}
+                </div>
+                <div className="flex-1 grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="bg-gray-800 p-4 rounded-lg">
+                    <p className="text-gray-400 text-sm">الاسم</p>
+                    <p className="font-medium">{viewingUser.name}</p>
+                  </div>
+                  <div className="bg-gray-800 p-4 rounded-lg">
+                    <p className="text-gray-400 text-sm">البريد الإلكتروني</p>
+                    <p className="font-medium text-blue-400">
+                      {viewingUser.email}
+                    </p>
+                  </div>
+                  <div className="bg-gray-800 p-4 rounded-lg">
+                    <p className="text-gray-400 text-sm">الدور</p>
+                    <span
+                      className={`px-2 py-1 rounded text-xs ${
+                        viewingUser.role === "admin"
+                          ? "bg-purple-900/40 text-purple-300"
+                          : "bg-blue-900/40 text-blue-300"
+                      }`}
+                    >
+                      {viewingUser.role === "admin" ? "مشرف" : "مستخدم"}
+                    </span>
+                  </div>
+                  <div className="bg-gray-800 p-4 rounded-lg">
+                    <p className="text-gray-400 text-sm">النقاط</p>
+                    <p className="font-medium text-yellow-400">
+                      {viewingUser.points} نقطة
+                    </p>
+                  </div>
+                  <div className="bg-gray-800 p-4 rounded-lg md:col-span-2">
+                    <p className="text-gray-400 text-sm">معرف المستخدم</p>
+                    <p className="font-medium text-gray-300">
+                      {viewingUser.id}
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div className="flex justify-end mt-6">
+                <button
+                  onClick={() => {
+                    handleCloseUserDetails();
+                    handleEditUser(viewingUser);
+                  }}
+                  className="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg"
+                >
+                  تعديل المستخدم
+                </button>
+              </div>
+            </div>
+          )}
+
           <div className="bg-gray-900 rounded-xl overflow-hidden border border-gray-800">
-            <div className="grid grid-cols-5 p-4 bg-gray-800 font-medium">
+            <div className="grid grid-cols-6 p-4 bg-gray-800 font-medium">
               <div>الاسم</div>
               <div>البريد الإلكتروني</div>
               <div>الدور</div>
               <div>النقاط</div>
+              <div>الحالة</div>
               <div>الإجراءات</div>
             </div>
 
@@ -422,7 +531,7 @@ export default function AdminDashboard() {
                 users.map((user) => (
                   <div
                     key={user.id}
-                    className="grid grid-cols-5 p-4 hover:bg-gray-850 items-center"
+                    className="grid grid-cols-6 p-4 hover:bg-gray-850 items-center"
                   >
                     <div className="truncate">{user.name}</div>
                     <div className="truncate text-blue-400">{user.email}</div>
@@ -438,7 +547,38 @@ export default function AdminDashboard() {
                       </span>
                     </div>
                     <div className="text-yellow-400">{user.points} نقطة</div>
+                    <div>
+                      <span className="px-2 py-1 text-xs rounded-full bg-green-900 text-green-300">
+                        نشط
+                      </span>
+                    </div>
                     <div className="flex gap-2">
+                      <button
+                        onClick={() => handleViewUser(user.id)}
+                        className="bg-blue-900 hover:bg-blue-800 px-3 py-1 rounded-lg text-sm flex items-center"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="h-4 w-4 ml-1"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                          />
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                          />
+                        </svg>
+                        عرض
+                      </button>
                       <button
                         onClick={() => handleEditUser(user)}
                         className="bg-gray-700 hover:bg-gray-600 px-3 py-1 rounded-lg text-sm flex items-center"

@@ -11,23 +11,29 @@ export default function Header() {
           Gamified
         </Link>
         <nav className="hidden md:flex space-x-6">
-          <Link href="/" className="hover:text-blue-400 transition-colors">
+          <Link href="/" className="hover:text-blue-400 font-medium">
             الرئيسية
           </Link>
-          <Link
-            href="/challenges"
-            className="hover:text-blue-400 transition-colors"
-          >
+          <Link href="/challenges" className="hover:text-blue-400 font-medium">
             التحديات
           </Link>
-          <Link
-            href="/leaderboard"
-            className="hover:text-blue-400 transition-colors"
-          >
+          <Link href="/leaderboard" className="hover:text-blue-400 font-medium">
             لوحة الصدارة
           </Link>
-          <Link href="/about" className="text-blue-400 font-medium">
+          <Link href="/about" className="hover:text-blue-400 font-medium">
             عن المنصة
+          </Link>
+          <Link
+            href="/dashboard/admin"
+            className="hover:text-blue-400 font-medium"
+          >
+            لوحه المشرف
+          </Link>
+          <Link
+            href="/dashboard/user"
+            className="hover:text-blue-400 font-medium"
+          >
+            لوحه المستخدم
           </Link>
         </nav>
         <Link

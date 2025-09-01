@@ -4,7 +4,7 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { PrismaService } from 'src/DataBase/prisma.service';
-import { SignInDto, SignUpDto } from './dto/auth.create.dto';
+import { MeResponseDto, SignInDto, SignUpDto } from './dto/auth.create.dto';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { generateToken } from 'src/utils/jwt.util';
@@ -69,6 +69,17 @@ export class AuthService {
     const token = generateToken(this.jwtService, payload);
     return { message: 'Login successful', token, id };
   }
+  async getMe(getUser: MeResponseDto) {
+    const user = await this.prisma.user.findUnique({
+      where: { email: getUser.email },
+    });
+
+    if (!user) {
+      throw new UnauthorizedException('User not found');
+    }
+    return user;
+  }
+
   async validateOAuthUser(userData: OAuthUser) {
     const { username, email } = userData;
     if (!email) {

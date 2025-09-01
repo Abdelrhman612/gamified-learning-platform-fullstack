@@ -2,10 +2,10 @@ import { Body, Controller, Get, Post, Res, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { MeResponseDto, SignInDto, SignUpDto } from './dto/auth.create.dto';
 import { AuthGuards } from './auth.guard';
-import { JwtPayload, OAuthUser } from './types/auth.types';
 import { User } from 'src/utils/decorators/user.decorator';
 import { AuthGuard } from '@nestjs/passport';
 import { Response } from 'express';
+import { OAuthUser } from './types/auth.types';
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
@@ -20,13 +20,8 @@ export class AuthController {
   }
   @Get('me')
   @UseGuards(AuthGuards)
-  getMe(@User() user: JwtPayload): MeResponseDto {
-    return {
-      name: user.name,
-      email: user.email,
-      role: user.role,
-      points: user.points,
-    };
+  getMe(@User() user: MeResponseDto) {
+    return this.authService.getMe(user);
   }
   @Get('github/sign-in')
   @UseGuards(AuthGuard('github'))

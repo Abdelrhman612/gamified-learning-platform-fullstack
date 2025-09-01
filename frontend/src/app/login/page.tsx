@@ -16,7 +16,7 @@ export default function LoginPage() {
     try {
       await SignIn({ email, password });
       alert("✅ تم تسجيل الدخول بنجاح");
-      router.push("/challenges");
+      router.push("/dashboard/user");
     } catch (err) {
       console.log(err);
       alert("❌ فشل تسجيل الدخول");

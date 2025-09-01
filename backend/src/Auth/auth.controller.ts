@@ -34,7 +34,7 @@ export class AuthController {
     const user = await this.authService.validateOAuthUser(profile);
     const token = user.token;
     return res.redirect(
-      `${process.env.CORS_ORIGIN}/dashboard?token=${token}`,
+      `${process.env.CORS_ORIGIN}/dashboard/user?token=${token}`,
     ) as unknown as Response;
   }
 }

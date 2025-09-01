@@ -9,7 +9,6 @@ export default function DashboardPage() {
   const [user, setUser] = useState<User>();
   const [loading, setLoading] = useState(true);
   const router = useRouter();
-
   useEffect(() => {
     const fetchUser = async () => {
       try {
@@ -30,7 +29,6 @@ export default function DashboardPage() {
     router.push("/login");
   };
 
-  // إنشاء صورة افتراضية بناءً على اسم المستخدم
   const getAvatarUrl = (name: string) => {
     const colors = [
       "bg-blue-500",
@@ -75,7 +73,6 @@ export default function DashboardPage() {
         </header>
 
         <div className="bg-gray-900/70 backdrop-blur-md border border-gray-800 rounded-3xl p-6 md:p-8 shadow-2xl shadow-blue-900/10">
-          {/* صورة المستخدم والمعلومات الأساسية */}
           <div className="flex flex-col md:flex-row items-center md:items-start gap-6 mb-8 pb-6 border-b border-gray-800">
             <div className="flex-shrink-0">{getAvatarUrl(user.name)}</div>
 
@@ -104,7 +101,6 @@ export default function DashboardPage() {
             </div>
           </div>
 
-          {/* معلومات تفصيلية */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
             <div className="bg-gradient-to-br from-gray-800 to-gray-900 p-5 rounded-2xl border border-gray-700 shadow-md">
               <div className="flex items-center mb-4">
@@ -168,7 +164,6 @@ export default function DashboardPage() {
               </div>
             </div>
           </div>
-          {/* زر تسجيل الخروج */}
           <button
             onClick={handleLogout}
             className="w-full px-4 py-3 bg-red-600 hover:bg-red-700 text-white rounded-xl flex items-center justify-center gap-2 transition-all duration-300 transform hover:scale-[1.02] shadow-lg shadow-red-900/20 hover:shadow-red-900/30"

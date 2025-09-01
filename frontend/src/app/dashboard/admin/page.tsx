@@ -152,7 +152,7 @@ export default function AdminDashboard() {
     }
   };
 
-  // إنشاء صورة افتراضية بناءً على اسم المستخدم
+  
   const getAvatarUrl = (name: string) => {
     const colors = [
       "bg-blue-500",

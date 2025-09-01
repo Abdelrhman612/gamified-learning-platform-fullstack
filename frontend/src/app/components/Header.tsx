@@ -2,32 +2,40 @@ import Link from "next/link";
 
 export default function Header() {
   return (
-    <header className="bg-gray-800 shadow-sm">
-      <div className="container mx-auto px-4 py-3 flex items-center justify-between">
+    <header className="container mx-auto px-4 py-6">
+      <div className="flex justify-between items-center">
         <Link
           href="/"
-          className="text-xl font-extrabold tracking-tight text-white"
+          className="text-2xl font-bold bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent"
         >
-          منصة Gamified
+          Gamified
         </Link>
-
-        <nav className="flex items-center gap-4 text-sm">
-          <Link href="/challenges" className="hover:underline">
-            التحديات
-          </Link>
-          <Link href="/dashboard/user" className="hover:underline">
-            لوحة المستخدم
-          </Link>
-          <Link href="/dashboard/admin" className="hover:underline">
-            لوحة الأدمن
+        <nav className="hidden md:flex space-x-6">
+          <Link href="/" className="hover:text-blue-400 transition-colors">
+            الرئيسية
           </Link>
           <Link
-            href="/login"
-            className="px-3 py-1.5 rounded-lg border border-gray-600 hover:bg-gray-700"
+            href="/challenges"
+            className="hover:text-blue-400 transition-colors"
           >
-            تسجيل الدخول
+            التحديات
+          </Link>
+          <Link
+            href="/leaderboard"
+            className="hover:text-blue-400 transition-colors"
+          >
+            لوحة الصدارة
+          </Link>
+          <Link href="/about" className="text-blue-400 font-medium">
+            عن المنصة
           </Link>
         </nav>
+        <Link
+          href="/login"
+          className="px-4 py-2 rounded-lg bg-gray-800 hover:bg-gray-700 transition-colors"
+        >
+          تسجيل الدخول
+        </Link>
       </div>
     </header>
   );

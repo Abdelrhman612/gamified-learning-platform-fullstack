@@ -27,7 +27,6 @@ export const ChallengeForm: React.FC<ChallengeFormProps> = ({
       setType(initialData.type);
       setPoints(initialData.points);
 
-      // تحويل التواريخ إلى تنسيق مناسب لحقول input[type="datetime-local"]
       if (initialData.startAt) {
         const startDate = new Date(initialData.startAt);
         setStartAt(startDate.toISOString().slice(0, 16));
@@ -43,7 +42,7 @@ export const ChallengeForm: React.FC<ChallengeFormProps> = ({
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    // تحويل التواريخ إلى صيغة ISO
+    
     const challengeData = {
       title,
       description,
@@ -55,7 +54,7 @@ export const ChallengeForm: React.FC<ChallengeFormProps> = ({
 
     onSubmit(challengeData);
 
-    // إعادة تعيين الحقول فقط إذا لم يكن في وضع التعديل
+    
     if (!initialData) {
       setTitle("");
       setDescription("");

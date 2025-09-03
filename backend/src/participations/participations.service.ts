@@ -71,6 +71,14 @@ export class ParticipationsService {
           },
         },
       });
+      await tx.user.update({
+        where: { id: createDto.userId },
+        data: {
+          points: {
+            increment: challenge.points,
+          },
+        },
+      });
 
       return newParticipation;
     });
@@ -80,7 +88,6 @@ export class ParticipationsService {
   async getParticipationsByChallenge(
     challengeId: string,
   ): Promise<Participation[]> {
-    // التحقق من وجود التحدي أولاً
     const challenge = await this.prisma.challenge.findUnique({
       where: { id: challengeId },
     });
@@ -134,7 +141,6 @@ export class ParticipationsService {
     updateDto: UpdateParticipationDto,
   ): Promise<Participation> {
     try {
-      // التحقق من وجود المشاركة أولاً
       const participation = await this.prisma.participation.findUnique({
         where: { id },
       });
@@ -160,7 +166,6 @@ export class ParticipationsService {
 
   // Get participations of a user
   async getParticipationsByUser(userId: string): Promise<Participation[]> {
-    // التحقق من وجود المستخدم أولاً
     const user = await this.prisma.user.findUnique({
       where: { id: userId },
     });
@@ -188,7 +193,6 @@ export class ParticipationsService {
     });
   }
 
-  // دالة مساعدة للتحقق من وجود المستخدم والتحدي
   async validateUserAndChallenge(
     userId: string,
     challengeId: string,

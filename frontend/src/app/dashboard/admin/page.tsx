@@ -152,7 +152,6 @@ export default function AdminDashboard() {
     }
   };
 
-  
   const getAvatarUrl = (name: string) => {
     const colors = [
       "bg-blue-500",
@@ -184,7 +183,7 @@ export default function AdminDashboard() {
   return (
     <div className="min-h-screen bg-gray-950 text-white p-4 md:p-8">
       <header className="mb-8 border-b border-gray-700 pb-4">
-        <h1 className="text-3xl font-bold">لوحة تحكم الأدمن</h1>
+        <h1 className="text-3xl font-bold">لوحة تحكم المشرف</h1>
         <p className="text-gray-400">إدارة المستخدمين والتحديات في النظام</p>
       </header>
 

@@ -18,7 +18,6 @@ model User {
   updatedAt      DateTime        @updatedAt
   // Relations
   participations Participation[]
-  badges         UserBadge[]
 }
 
 enum role {
@@ -55,27 +54,6 @@ model Participation {
   // Relations
   user      User      @relation(fields: [userId], references: [id])
   challenge Challenge @relation(fields: [challengeId], references: [id])
-}
-
-model Badge {
-  id        String   @id @default(uuid())
-  name      String
-  iconUrl   String
-  createdAt DateTime @default(now())
-
-  // Relations
-  users UserBadge[]
-}
-
-model UserBadge {
-  id        String   @id @default(uuid())
-  userId    String
-  badgeId   String
-  awardedAt DateTime @default(now())
-
-  // Relations
-  user  User  @relation(fields: [userId], references: [id])
-  badge Badge @relation(fields: [badgeId], references: [id])
 }
 
 model ChatHistory {

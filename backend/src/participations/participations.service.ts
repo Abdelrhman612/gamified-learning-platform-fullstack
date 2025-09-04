@@ -5,8 +5,7 @@ import {
 } from '@nestjs/common';
 import { PrismaService } from 'src/DataBase/prisma.service';
 import { CreateParticipationDto } from './dto/create-participation.dto';
-import { UpdateParticipationDto } from './dto/update-participation.dto';
-import { Participation, Prisma } from '@prisma/client';
+import { Participation } from '@prisma/client';
 
 @Injectable()
 export class ParticipationsService {
@@ -79,6 +78,17 @@ export class ParticipationsService {
           },
         },
       });
+      await tx.participation.update({
+        where: { id: newParticipation.id },
+        data: {
+          awardedPoints: {
+            increment: challenge.points,
+          },
+          status: {
+            set: 'completed',
+          },
+        },
+      });
 
       return newParticipation;
     });
@@ -108,62 +118,16 @@ export class ParticipationsService {
             email: true,
           },
         },
-      },
-    });
-  }
-
-  // Get a single participation by ID
-  async getParticipationById(id: string): Promise<Participation | null> {
-    const participation = await this.prisma.participation.findUnique({
-      where: { id },
-      include: {
-        user: {
+        challenge: {
           select: {
             id: true,
-            name: true,
-            email: true,
+            title: true,
+            points: true,
           },
         },
-        challenge: true,
       },
     });
-
-    if (!participation) {
-      throw new NotFoundException(`Participation with ID ${id} not found.`);
-    }
-
-    return participation;
   }
-
-  // Update participation
-  async updateParticipation(
-    id: string,
-    updateDto: UpdateParticipationDto,
-  ): Promise<Participation> {
-    try {
-      const participation = await this.prisma.participation.findUnique({
-        where: { id },
-      });
-
-      if (!participation) {
-        throw new NotFoundException(`Participation with ID ${id} not found.`);
-      }
-
-      return await this.prisma.participation.update({
-        where: { id },
-        data: updateDto,
-      });
-    } catch (error) {
-      if (
-        error instanceof Prisma.PrismaClientKnownRequestError &&
-        error.code === 'P2025'
-      ) {
-        throw new NotFoundException(`Participation with ID ${id} not found.`);
-      }
-      throw error;
-    }
-  }
-
   // Get participations of a user
   async getParticipationsByUser(userId: string): Promise<Participation[]> {
     const user = await this.prisma.user.findUnique({
@@ -173,7 +137,6 @@ export class ParticipationsService {
     if (!user) {
       throw new NotFoundException(`User with ID ${userId} not found.`);
     }
-
     return this.prisma.participation.findMany({
       where: { userId },
       include: {
@@ -191,27 +154,5 @@ export class ParticipationsService {
         createdAt: 'desc',
       },
     });
-  }
-
-  async validateUserAndChallenge(
-    userId: string,
-    challengeId: string,
-  ): Promise<{ user: any; challenge: any }> {
-    const [user, challenge] = await Promise.all([
-      this.prisma.user.findUnique({ where: { id: userId } }),
-      this.prisma.challenge.findUnique({ where: { id: challengeId } }),
-    ]);
-
-    if (!user) {
-      throw new BadRequestException(`User with ID ${userId} not found.`);
-    }
-
-    if (!challenge) {
-      throw new NotFoundException(
-        `Challenge with ID ${challengeId} not found.`,
-      );
-    }
-
-    return { user, challenge };
   }
 }

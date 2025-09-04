@@ -44,7 +44,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* قسم الميزات */}
       <section className="container mx-auto px-4 py-16">
         <h2 className="text-2xl md:text-3xl font-bold text-center mb-12">
           ماذا نقدم؟
@@ -137,7 +136,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* الفوتر */}
       <footer className="container mx-auto px-4 py-8 text-center text-gray-400 text-sm border-t border-gray-800 mt-8">
         <p>© 2023 Gamified. جميع الحقوق محفوظة.</p>
       </footer>

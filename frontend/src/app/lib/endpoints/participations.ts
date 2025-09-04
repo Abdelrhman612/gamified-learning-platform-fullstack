@@ -38,25 +38,3 @@ export const getParticipationsByUser = async (userId: string) => {
   );
   return res.data;
 };
-
-// ✅ 4. Update a participation (admin only)
-export const updateParticipation = async (
-  participationId: string,
-  updateData: Partial<ParticipationData> // 👈 update غالبًا مش هيتطلب كل الفيلدز
-) => {
-  const res = await axios.patch(
-    `${participationsUrl}/participations/${participationId}`,
-    updateData,
-    { headers: getAuthHeaders() }
-  );
-  return res.data;
-};
-
-// ✅ 5. Get a single participation by ID (admin only)
-export const getParticipationById = async (participationId: string) => {
-  const res = await axios.get(
-    `${participationsUrl}/participations/${participationId}`,
-    { headers: getAuthHeaders() }
-  );
-  return res.data;
-};

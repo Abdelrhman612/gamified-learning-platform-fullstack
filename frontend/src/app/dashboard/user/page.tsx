@@ -4,6 +4,7 @@ import { Logout } from "../../lib/endpoints/challenge";
 import { useRouter } from "next/navigation";
 import { User } from "../interface.user";
 import { GetMe } from "@/app/lib/endpoints/auth";
+import Link from "next/link";
 
 export default function DashboardPage() {
   const [user, setUser] = useState<User>();
@@ -164,6 +165,12 @@ export default function DashboardPage() {
               </div>
             </div>
           </div>
+          <Link
+            href={`/users/${user.id}/participations`}
+            className="w-full px-4 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl flex items-center justify-center gap-2 transition-all duration-300 transform hover:scale-[1.02] shadow-lg shadow-red-900/20 hover:shadow-red-900/30"
+          >
+            عرض مشاركات المستخدم
+          </Link>
           <button
             onClick={handleLogout}
             className="w-full px-4 py-3 bg-red-600 hover:bg-red-700 text-white rounded-xl flex items-center justify-center gap-2 transition-all duration-300 transform hover:scale-[1.02] shadow-lg shadow-red-900/20 hover:shadow-red-900/30"

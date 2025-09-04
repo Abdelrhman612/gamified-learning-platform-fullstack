@@ -16,6 +16,7 @@ import {
   updateUser,
   getUserById,
 } from "@/app/lib/endpoints/user";
+import Link from "next/link";
 
 export default function AdminDashboard() {
   const [users, setUsers] = useState<User[]>([]);
@@ -339,6 +340,12 @@ export default function AdminDashboard() {
                         </svg>
                         حذف
                       </button>
+                      <Link
+                        className="bg-green-700 hover:bg-green-800 px-3 py-2 rounded-lg text-sm flex items-center"
+                        href={`/challenges-participations/${challenge.id}/participations`}
+                      >
+                        <button>المشاركات</button>
+                      </Link>
                     </div>
                   </div>
                 </div>

@@ -74,7 +74,6 @@ export default function ChallengeCard({
           </span>
         </div>
 
-        {/* عدد المشاركين */}
         <div className="flex items-center justify-between pt-2 border-t border-gray-100 dark:border-gray-700">
           <div className="flex items-center text-xs text-gray-500 dark:text-gray-400">
             <svg

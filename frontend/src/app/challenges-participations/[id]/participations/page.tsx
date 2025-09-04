@@ -3,21 +3,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { getParticipationsByChallenge } from "@/app/lib/endpoints/participations";
-
-interface Participation {
-  id: string;
-  submission: string;
-  submissionUrl: string;
-  awardedPoints: number;
-  user: {
-    name: string;
-    email: string;
-  };
-  challenge: {
-    title: string;
-    points: number;
-  };
-}
+import { Participation } from "../../challenges-participations.intrface";
 
 export default function ChallengeParticipationsPage() {
   const { id } = useParams();
@@ -68,7 +54,6 @@ export default function ChallengeParticipationsPage() {
         </div>
       ) : (
         <>
-          {/* 👇 عنوان التحدي */}
           <div className="mb-8 text-center">
             <h2 className="text-2xl font-semibold text-white">
               {participations[0].challenge.title}

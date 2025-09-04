@@ -229,7 +229,6 @@ export default function About() {
         </div>
       </section>
 
-      {/* الفوتر */}
       <footer className="container mx-auto px-4 py-8 text-center text-gray-400 text-sm border-t border-gray-800">
         <p>© Gamified. جميع الحقوق محفوظة.</p>
       </footer>

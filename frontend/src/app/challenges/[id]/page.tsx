@@ -40,7 +40,7 @@ export default function ChallengeDetail() {
 
     if (!userId) {
       alert("يجب تسجيل الدخول أولاً");
-      router.push("/login"); // توجيه المستخدم إلى صفحة تسجيل الدخول
+      router.push("/login"); 
       return;
     }
 

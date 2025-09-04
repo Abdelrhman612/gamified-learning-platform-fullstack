@@ -3,26 +3,10 @@
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { getParticipationsByUser } from "@/app/lib/endpoints/participations";
-
-interface Challenge {
-  id: string;
-  title: string;
-  description: string;
-  points: number;
-  type: string;
-}
-
-interface Participation {
-  id: string;
-  submission: string | null;
-  submissionUrl: string | null;
-  awardedPoints: number;
-  createdAt: string;
-  challenge: Challenge;
-}
+import { Participation } from "./users.intrface";
 
 export default function UserParticipationsPage() {
-  const { id } = useParams(); // 👈 userId
+  const { id } = useParams();
   const [participations, setParticipations] = useState<Participation[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);

@@ -27,8 +27,6 @@ export default function LoginPage() {
     <div className="flex min-h-[70vh] items-center justify-center">
       <div className="w-full max-w-md bg-black border border-gray-800 rounded-2xl p-8 shadow-lg">
         <h1 className="text-2xl font-bold mb-6 text-center">تسجيل الدخول</h1>
-
-        {/* Email + Password Form */}
         <form className="space-y-4 mb-6" onSubmit={handleLogin}>
           <input
             type="email"

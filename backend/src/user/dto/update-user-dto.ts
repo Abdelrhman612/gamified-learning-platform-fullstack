@@ -7,15 +7,13 @@ export class UpdateUserDto {
   @IsOptional()
   @IsEmail()
   email: string;
-
-  @IsString()
   @IsOptional()
+  @IsString()
   password: string;
 
   @IsOptional()
   @IsString()
   role?: string;
-
   @IsOptional()
   points?: number;
 }

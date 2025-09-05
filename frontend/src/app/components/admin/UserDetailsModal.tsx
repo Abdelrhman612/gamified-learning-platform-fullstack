@@ -3,12 +3,14 @@
 import { User } from "@/app/dashboard/interface.user";
 
 interface UserDetailsModalProps {
+  id: string;
   viewingUser: User;
   onClose: () => void;
   onEditUser: (user: User) => void;
 }
 
 export default function UserDetailsModal({
+  id,
   viewingUser,
   onClose,
   onEditUser,
@@ -70,7 +72,7 @@ export default function UserDetailsModal({
           </div>
           <div className="bg-gray-800 p-4 rounded-lg md:col-span-2">
             <p className="text-gray-400 text-sm">معرف المستخدم</p>
-            <p className="font-medium text-gray-300">{viewingUser.id}</p>
+            <p className="font-medium text-gray-300">{id}</p>
           </div>
         </div>
       </div>

@@ -4,6 +4,7 @@ import { RequestMethod, ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+
   const allowedOrigins = [
     'https://gamified-learning-platform-fullstac-six.vercel.app',
     'https://gamified-learnin-git-3f6ef5-abdelrhman-aymans-projects-ec59a889.vercel.app',
@@ -11,7 +12,16 @@ async function bootstrap() {
   ];
 
   app.enableCors({
-    origin: allowedOrigins,
+    origin: (
+      origin: string,
+      callback: (err: Error | null, allowed: boolean) => void,
+    ) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by CORS'), false);
+      }
+    },
     credentials: true,
   });
 

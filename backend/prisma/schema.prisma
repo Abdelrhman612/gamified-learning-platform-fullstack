@@ -52,8 +52,8 @@ model Participation {
   createdAt     DateTime @default(now())
 
   // Relations
-  user      User      @relation(fields: [userId], references: [id])
-  challenge Challenge @relation(fields: [challengeId], references: [id])
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  challenge Challenge @relation(fields: [challengeId], references: [id], onDelete: Cascade)
 }
 
 model ChatHistory {

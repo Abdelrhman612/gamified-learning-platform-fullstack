@@ -125,7 +125,6 @@ export default function Leaderboard() {
                   </div>
                   <div>
                     <h3 className="font-medium text-lg">{user.name}</h3>
-                    <p className="text-gray-400 text-sm">{user.email}</p>
                   </div>
                 </div>
 
@@ -180,9 +179,6 @@ export default function Leaderboard() {
                     <td className="px-4 py-3">
                       <div>
                         <div className="font-medium">{user.name}</div>
-                        <div className="text-sm text-gray-400">
-                          {user.email}
-                        </div>
                       </div>
                     </td>
                     <td className="px-4 py-3 text-center">

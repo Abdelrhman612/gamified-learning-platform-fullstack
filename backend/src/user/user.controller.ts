@@ -18,6 +18,7 @@ export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Get()
+  @Roles(['admin'])
   getUsers() {
     return this.userService.getUsers();
   }
@@ -29,7 +30,7 @@ export class UserController {
   }
 
   @Patch(':id')
-  @Roles(['admin', 'user'])
+  @Roles(['admin'])
   updateUser(@Body() updateUserDto: UpdateUserDto, @Param('id') id: string) {
     return this.userService.updateUser(updateUserDto, id);
   }

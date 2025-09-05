@@ -1,4 +1,4 @@
-export const signInUrl = `https://gamified-learning-platform-fullstack-production.up.railway.app/api/v1/auth/sign-in`;
+export const signInUrl = `${process.env.NEXT_PUBLIC_API_URL}/auth/sign-in`;
 export const signUpUrl = `${process.env.NEXT_PUBLIC_API_URL}/auth/sign-up`;
 export const getHubCallbackurl = `${process.env.NEXT_PUBLIC_API_URL}/auth/github/callback`;
 export const userUrl = `${process.env.NEXT_PUBLIC_API_URL}/user`;

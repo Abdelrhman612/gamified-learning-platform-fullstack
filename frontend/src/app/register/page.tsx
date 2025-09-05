@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { SignUp } from "../lib/endpoints/auth";
+import { getHubCallbackurl } from "../lib/api";
 
 export default function RegisterPage() {
   const [name, setName] = useState("");
@@ -20,7 +21,6 @@ export default function RegisterPage() {
     }
     try {
       await SignUp({ name, email, password });
-
       alert("✅ تم إنشاء الحساب بنجاح");
       router.push("/login");
     } catch (err) {
@@ -83,7 +83,7 @@ export default function RegisterPage() {
         <button
           type="button"
           onClick={() => {
-            window.location.href = "http://localhost:3001/auth/github/sign-in";
+            window.location.href = getHubCallbackurl;
           }}
           className="w-full px-4 py-3 bg-gray-900 hover:bg-gray-800 border border-gray-700 rounded-lg flex items-center justify-center gap-2"
         >

@@ -7,6 +7,7 @@ import UserFormModal from "./UserFormModal";
 import UsersTable from "./UsersTable";
 
 interface UsersTabProps {
+  id: string;
   users: User[];
   onUpdateUser: (id: string, data: Partial<User>) => Promise<void>;
   onDeleteUser: (id: string) => Promise<void>;
@@ -14,6 +15,7 @@ interface UsersTabProps {
 }
 
 export default function UsersTab({
+  id,
   users,
   onUpdateUser,
   onDeleteUser,
@@ -26,7 +28,7 @@ export default function UsersTab({
 
   const handleUserSubmit = async (userData: Partial<User>) => {
     if (editingUser) {
-      await onUpdateUser(editingUser.id, userData);
+      await onUpdateUser(id, userData);
       setEditingUser(null);
       setShowUserForm(false);
     }

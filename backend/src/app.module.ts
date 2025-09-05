@@ -7,6 +7,7 @@ import { ConfigModule } from '@nestjs/config';
 import { ChallengeModule } from './challenge/challenge.module';
 import { GeminiModule } from './gemini/gemini.module';
 import { ParticipationsModule } from './participations/participations.module';
+import { AppController } from './app.controller';
 
 @Module({
   imports: [
@@ -22,7 +23,7 @@ import { ParticipationsModule } from './participations/participations.module';
     GeminiModule,
     ParticipationsModule,
   ],
-  controllers: [],
+  controllers: [AppController],
   providers: [],
 })
 export class AppModule {}

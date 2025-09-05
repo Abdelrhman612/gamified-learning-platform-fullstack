@@ -29,7 +29,7 @@ export class UserController {
   }
 
   @Patch(':id')
-  @Roles(['admin'])
+  @Roles(['admin', 'user'])
   updateUser(@Body() updateUserDto: UpdateUserDto, @Param('id') id: string) {
     return this.userService.updateUser(updateUserDto, id);
   }

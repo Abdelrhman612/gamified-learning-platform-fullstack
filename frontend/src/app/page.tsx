@@ -120,7 +120,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* دعوة للعمل */}
       <section className="container mx-auto px-4 py-16 text-center">
         <div className="max-w-2xl mx-auto bg-gray-800 p-8 rounded-xl border border-gray-700">
           <h2 className="text-2xl md:text-3xl font-bold mb-4">جاهز للتحدي؟</h2>

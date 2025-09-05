@@ -35,6 +35,9 @@ export default function Header() {
           >
             لوحه المستخدم
           </Link>
+          <Link href="/gemini" className="hover:text-blue-400 font-medium">
+            🚀 جرّب Gemini Chat
+          </Link>
         </nav>
         <Link
           href="/login"

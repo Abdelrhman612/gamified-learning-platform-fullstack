@@ -1,7 +1,11 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  serverRuntimeConfig: {},
+  reactStrictMode: true,
+  i18n: {
+    locales: ["ar"],
+    defaultLocale: "ar",
+  },
 };
 
 export default nextConfig;

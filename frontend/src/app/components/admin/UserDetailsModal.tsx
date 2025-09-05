@@ -54,12 +54,12 @@ export default function UserDetailsModal({
             <p className="text-gray-400 text-sm">الدور</p>
             <span
               className={`px-2 py-1 rounded text-xs ${
-                viewingUser.role === "user"
+                viewingUser.role === "admin"
                   ? "bg-purple-900/40 text-purple-300"
                   : "bg-blue-900/40 text-blue-300"
               }`}
             >
-              {viewingUser.role === "user" ? "مشرف" : "مستخدم"}
+              {viewingUser.role === "admin" ? "مشرف" : "مستخدم"}
             </span>
           </div>
           <div className="bg-gray-800 p-4 rounded-lg">

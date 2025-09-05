@@ -4,7 +4,6 @@ import { RequestMethod, ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-
   const allowedOrigins = [
     'https://gamified-learning-platform-fullstac-six.vercel.app',
     'https://gamified-learnin-git-3f6ef5-abdelrhman-aymans-projects-ec59a889.vercel.app',

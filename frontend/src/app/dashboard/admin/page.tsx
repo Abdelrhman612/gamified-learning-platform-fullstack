@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { User } from "../interface.user";
+import { User } from "../../lib/user.interface";
 import { Challenge } from "@/app/challenges/interface.challenges";
 import {
   createChallenge,
@@ -17,6 +17,7 @@ import {
 } from "@/app/lib/endpoints/user";
 import ChallengesTab from "@/app/components/admin/ChallengesTab";
 import UsersTab from "@/app/components/admin/UsersTab";
+import Link from "next/link";
 
 export default function AdminDashboard() {
   const [users, setUsers] = useState<User[]>([]);
@@ -161,6 +162,12 @@ export default function AdminDashboard() {
         >
           المستخدمين
         </button>
+        <Link
+          href="/leaderboard"
+          className="py-3 px-6 font-medium text-gray-400"
+        >
+          لوحة الصدارة
+        </Link>
       </div>
 
       {activeTab === "challenges" && (

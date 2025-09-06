@@ -1,7 +1,6 @@
-import { User } from "@/app/dashboard/interface.user";
+import { User } from "@/app/lib/user.interface";
 
 interface UsersTableProps {
-  id: string;
   users: User[];
   onViewUser: (id: string) => void;
   onEditUser: (user: User) => void;
@@ -9,7 +8,6 @@ interface UsersTableProps {
 }
 
 export default function UsersTable({
-  id,
   users,
   onViewUser,
   onEditUser,
@@ -34,7 +32,7 @@ export default function UsersTable({
         ) : (
           users.map((user) => (
             <div
-              key={id}
+              key={user.id}
               className="grid grid-cols-6 p-4 hover:bg-gray-850 items-center"
             >
               <div className="truncate">{user.name}</div>
@@ -58,7 +56,7 @@ export default function UsersTable({
               </div>
               <div className="flex gap-2">
                 <button
-                  onClick={() => onViewUser(id)}
+                  onClick={() => onViewUser(user.id)}
                   className="bg-blue-900 hover:bg-blue-800 px-3 py-1 rounded-lg text-sm flex items-center"
                 >
                   <svg
@@ -104,7 +102,7 @@ export default function UsersTable({
                   تعديل
                 </button>
                 <button
-                  onClick={() => onDeleteUser(id)}
+                  onClick={() => onDeleteUser(user.id)}
                   className="bg-red-900 hover:bg-red-800 px-3 py-1 rounded-lg text-sm flex items-center"
                 >
                   <svg

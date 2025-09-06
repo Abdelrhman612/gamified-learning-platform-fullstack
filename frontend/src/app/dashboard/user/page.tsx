@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { Logout } from "../../lib/endpoints/challenge";
 import { useRouter } from "next/navigation";
-import { User } from "../interface.user";
+import { User } from "../../lib/user.interface";
 import { GetMe } from "@/app/lib/endpoints/auth";
 import Link from "next/link";
 
@@ -11,6 +11,15 @@ export default function DashboardPage() {
   const [loading, setLoading] = useState(true);
   const router = useRouter();
   useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const token = params.get("token");
+    if (token) {
+      localStorage.setItem("token", token);
+      const url = new URL(window.location.href);
+      url.searchParams.delete("token");
+      window.history.replaceState({}, "", url.toString());
+    }
+
     const fetchUser = async () => {
       try {
         const data = await GetMe();

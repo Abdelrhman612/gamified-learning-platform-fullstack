@@ -1,13 +1,11 @@
 "use client";
 import { useState } from "react";
-
-import UserDetailsModal from "./UserDetailsModal";
-import { User } from "@/app/dashboard/interface.user";
 import UserFormModal from "./UserFormModal";
+import UserDetailsModal from "./UserDetailsModal";
 import UsersTable from "./UsersTable";
+import { User } from "@/app/lib/user.interface";
 
 interface UsersTabProps {
-  id: string;
   users: User[];
   onUpdateUser: (id: string, data: Partial<User>) => Promise<void>;
   onDeleteUser: (id: string) => Promise<void>;
@@ -15,7 +13,6 @@ interface UsersTabProps {
 }
 
 export default function UsersTab({
-  id,
   users,
   onUpdateUser,
   onDeleteUser,
@@ -28,7 +25,7 @@ export default function UsersTab({
 
   const handleUserSubmit = async (userData: Partial<User>) => {
     if (editingUser) {
-      await onUpdateUser(id, userData);
+      await onUpdateUser(editingUser.id, userData);
       setEditingUser(null);
       setShowUserForm(false);
     }

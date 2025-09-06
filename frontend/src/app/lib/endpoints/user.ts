@@ -1,4 +1,4 @@
-import { User } from "@/app/dashboard/interface.user";
+import { User } from "@/app/lib/user.interface";
 import axios from "axios";
 import { userUrl } from "../api";
 
@@ -19,7 +19,9 @@ export const getUserById = async (id: string): Promise<User> => {
 };
 
 export const updateUser = async (id: string, data: User) => {
-  const res = await axios.patch(`${userUrl}/${id}`, data, {
+  const { name, email, role, points } = data;
+  const dataToSend = { name, email, role, points };
+  const res = await axios.patch(`${userUrl}/${id}`, dataToSend, {
     headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
   });
   return res.data;

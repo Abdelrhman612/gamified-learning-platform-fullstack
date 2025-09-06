@@ -32,7 +32,9 @@ export const getChallengeById = async (id: string) => {
   return res.data;
 };
 export const createChallenge = async (data: Challenge) => {
-  const res = await axios.post(challengesUrl, data, {
+  const { title, description, type, points, startAt, endAt } = data;
+  const dataToSend = { title, description, type, points, startAt, endAt };
+  const res = await axios.post(challengesUrl, dataToSend, {
     headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
   });
   return res.data;

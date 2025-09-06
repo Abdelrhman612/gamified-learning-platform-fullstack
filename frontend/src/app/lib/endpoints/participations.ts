@@ -12,12 +12,24 @@ export const participateInChallenge = async (
   challengeId: string,
   participationData: ParticipationData
 ) => {
+  const payload: ParticipationData = {
+    userId: participationData.userId,
+    submission: participationData.submission,
+  };
+
+  if (
+    participationData.submissionUrl &&
+    participationData.submissionUrl.trim() !== ""
+  ) {
+    payload.submissionUrl = participationData.submissionUrl;
+  }
+
   const res = await axios.post(
     `${participationsUrl}/${challengeId}/participate`,
-    participationData,
+    payload,
     { headers: getAuthHeaders() }
   );
-  localStorage.getItem("userId");
+
   return res.data;
 };
 

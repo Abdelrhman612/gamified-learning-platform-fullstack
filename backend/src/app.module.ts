@@ -8,10 +8,18 @@ import { ChallengeModule } from './challenge/challenge.module';
 import { GeminiModule } from './gemini/gemini.module';
 import { ParticipationsModule } from './participations/participations.module';
 import { AppController } from './app.controller';
+import { config } from './config/config.service';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({ isGlobal: true }),
+    ConfigModule.forRoot({
+      isGlobal: true,
+      envFilePath:
+        process.env.NODE_ENV === 'production'
+          ? '.env.production.local'
+          : '.env.development.local',
+      load: [config],
+    }),
     JwtModule.register({
       global: true,
       secret: process.env.JWT_SECRET,

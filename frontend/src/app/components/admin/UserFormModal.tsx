@@ -1,6 +1,6 @@
 "use client";
 
-import { User } from "@/app/dashboard/interface.user";
+import { User } from "@/app/lib/user.interface";
 
 interface UserFormModalProps {
   editingUser: User;

@@ -17,9 +17,6 @@ export default function Header() {
           <Link href="/challenges" className="hover:text-blue-400 font-medium">
             التحديات
           </Link>
-          <Link href="/leaderboard" className="hover:text-blue-400 font-medium">
-            لوحة الصدارة
-          </Link>
           <Link href="/about" className="hover:text-blue-400 font-medium">
             عن المنصة
           </Link>

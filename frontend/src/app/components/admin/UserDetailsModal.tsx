@@ -1,6 +1,6 @@
 "use client";
 
-import { User } from "@/app/dashboard/interface.user";
+import { User } from "@/app/lib/user.interface";
 
 interface UserDetailsModalProps {
   viewingUser: User;
@@ -67,6 +67,10 @@ export default function UserDetailsModal({
             <p className="font-medium text-yellow-400">
               {viewingUser.points} نقطة
             </p>
+          </div>
+          <div className="bg-gray-800 p-4 rounded-lg md:col-span-2">
+            <p className="text-gray-400 text-sm">معرف المستخدم</p>
+            <p className="font-medium text-gray-300">{viewingUser.id}</p>
           </div>
         </div>
       </div>

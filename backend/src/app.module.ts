@@ -3,13 +3,15 @@ import { UserModule } from './user/user.module';
 
 import { AuthModule } from './Auth/auth.module';
 import { JwtModule } from '@nestjs/jwt';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { ChallengeModule } from './challenge/challenge.module';
 import { GeminiModule } from './gemini/gemini.module';
 import { ParticipationsModule } from './participations/participations.module';
 import { AppController } from './app.controller';
 import { config } from './config/config.service';
-
+const configService = new ConfigService();
+const jwtSecret = configService.get<string>('JWT_SECRET');
+const jwtExpires = configService.get<string>('JWT_EXPIRES');
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -22,8 +24,8 @@ import { config } from './config/config.service';
     }),
     JwtModule.register({
       global: true,
-      secret: process.env.JWT_SECRET,
-      signOptions: { expiresIn: process.env.JWT_EXPIRES },
+      secret: jwtSecret,
+      signOptions: { expiresIn: jwtExpires || '1S' },
     }),
     UserModule,
     ChallengeModule,

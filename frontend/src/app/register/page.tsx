@@ -9,16 +9,11 @@ export default function RegisterPage() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
   const router = useRouter();
 
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (password !== confirmPassword) {
-      alert("❌ كلمة المرور غير متطابقة");
-      return;
-    }
     try {
       await SignUp({ name, email, password });
       alert("✅ تم إنشاء الحساب بنجاح");
@@ -57,14 +52,6 @@ export default function RegisterPage() {
             onChange={(e) => setPassword(e.target.value)}
             className="w-full px-4 py-3 bg-gray-900 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
           />
-          <input
-            type="password"
-            placeholder="تأكيد كلمة المرور"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-            className="w-full px-4 py-3 bg-gray-900 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
-          />
-
           <button
             type="submit"
             className="w-full px-4 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg"

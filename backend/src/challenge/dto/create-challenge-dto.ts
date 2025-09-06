@@ -1,4 +1,4 @@
-import { IsDate, IsNumber, IsString } from 'class-validator';
+import { IsNumber, IsString } from 'class-validator';
 
 export class CreateChallengeDto {
   @IsString()
@@ -13,9 +13,9 @@ export class CreateChallengeDto {
   @IsNumber()
   points: number;
 
-  @IsDate()
-  startAt: Date;
+  @IsString()
+  startAt: string;
 
-  @IsDate()
-  endAt: Date;
+  @IsString()
+  endAt: string;
 }

@@ -4,14 +4,15 @@ import { Injectable } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { Strategy } from 'passport-github2';
 import { Profile } from 'passport';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class GithubStrategy extends PassportStrategy(Strategy, 'github') {
-  constructor() {
+  constructor(private readonly configService: ConfigService) {
     super({
-      clientID: process.env.GITHUB_CLIENT_ID,
-      clientSecret: process.env.GITHUB_CLIENT_SECRET,
-      callbackURL: process.env.GITHUB_CALLBACK_URL,
+      clientID: configService.get<string>('GITHUB_CLIENT_ID'),
+      clientSecret: configService.get<string>('GITHUB_CLIENT_SECRET'),
+      callbackURL: configService.get<string>('GITHUB_CALLBACK_URL'),
       scope: ['user:email'],
     });
   }
@@ -23,7 +24,6 @@ export class GithubStrategy extends PassportStrategy(Strategy, 'github') {
     done: (err: Error | null, user?: any) => void,
   ): Promise<any> {
     try {
-      // Ensure required profile data exists
       if (!profile?.id) {
         throw new Error('GitHub profile data is incomplete');
       }

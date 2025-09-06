@@ -1,66 +1,16 @@
 "use client";
 import { useState, useRef, useEffect } from "react";
 import { sendMessageToGemini } from "@/app/lib/endpoints/gemini";
-import { ChatHistory, Message } from "./gemini.intrface";
+import { Message } from "./gemini.intrface";
+
 export default function GeminiChatPage() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [sessionId, setSessionId] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [chatHistories, setChatHistories] = useState<ChatHistory[]>([]);
-  const [showHistory, setShowHistory] = useState(false);
-  const [currentChatId, setCurrentChatId] = useState<string | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
-  const historyRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const savedHistories = localStorage.getItem("geminiChatHistories");
-    if (savedHistories) {
-      try {
-        const parsedHistories = JSON.parse(savedHistories);
-        const historiesWithDates = parsedHistories.map(
-          (history: ChatHistory) => ({
-            ...history,
-            timestamp: new Date(history.timestamp),
-            messages: history.messages.map((msg: Message) => ({
-              ...msg,
-              timestamp: new Date(msg.timestamp),
-            })),
-          })
-        );
-        setChatHistories(historiesWithDates);
-      } catch (err) {
-        console.error("Failed to parse chat histories:", err);
-      }
-    }
-  }, []);
-
-  useEffect(() => {
-    if (chatHistories.length > 0) {
-      localStorage.setItem(
-        "geminiChatHistories",
-        JSON.stringify(chatHistories)
-      );
-    }
-  }, [chatHistories]);
-
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        historyRef.current &&
-        !historyRef.current.contains(event.target as Node)
-      ) {
-        setShowHistory(false);
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
 
   useEffect(() => {
     scrollToBottom();
@@ -113,30 +63,7 @@ export default function GeminiChatPage() {
         timestamp: new Date(),
       };
 
-      const finalMessages = [...updatedMessages, modelMessage];
-      setMessages(finalMessages);
-
-      if (!currentChatId) {
-        const newChatId = Date.now().toString();
-        setCurrentChatId(newChatId);
-
-        const newHistory: ChatHistory = {
-          id: newChatId,
-          title: input.slice(0, 30) + (input.length > 30 ? "..." : ""),
-          timestamp: new Date(),
-          messages: finalMessages,
-        };
-
-        setChatHistories((prev) => [newHistory, ...prev]);
-      } else {
-        setChatHistories((prev) =>
-          prev.map((history) =>
-            history.id === currentChatId
-              ? { ...history, messages: finalMessages }
-              : history
-          )
-        );
-      }
+      setMessages([...updatedMessages, modelMessage]);
     } catch (err) {
       console.error("Error:", err);
       setError("حدث خطأ أثناء إرسال الرسالة. يرجى المحاولة مرة أخرى.");
@@ -163,7 +90,6 @@ export default function GeminiChatPage() {
     setMessages([]);
     setSessionId(null);
     setError(null);
-    setCurrentChatId(null);
   };
 
   const formatTime = (date: Date) => {
@@ -173,113 +99,8 @@ export default function GeminiChatPage() {
     });
   };
 
-  const formatDate = (date: Date) => {
-    return date.toLocaleDateString("ar-EG", {
-      year: "numeric",
-      month: "short",
-      day: "numeric",
-    });
-  };
-
-  const loadChatHistory = (history: ChatHistory) => {
-    setMessages(history.messages);
-    setCurrentChatId(history.id);
-    setShowHistory(false);
-  };
-
-  const deleteChatHistory = (id: string, e: React.MouseEvent) => {
-    e.stopPropagation();
-    setChatHistories((prev) => prev.filter((history) => history.id !== id));
-
-    if (currentChatId === id) {
-      clearChat();
-    }
-  };
-
-  const deleteAllChatHistories = () => {
-    setChatHistories([]);
-    localStorage.removeItem("geminiChatHistories");
-    clearChat();
-    setShowHistory(false);
-  };
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 to-gray-800 text-white p-4 flex">
-      <div className="fixed right-4 top-4 z-10">
-        <button
-          onClick={() => setShowHistory(!showHistory)}
-          className="p-3 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full shadow-lg hover:from-blue-500 hover:to-purple-500 transition-all"
-        >
-          <span className="flex items-center">📋 السجل</span>
-        </button>
-      </div>
-
-      {showHistory && (
-        <div
-          ref={historyRef}
-          className="fixed right-4 top-20 bg-gray-800 w-80 rounded-xl shadow-2xl z-20 border border-gray-700 p-4 animate-fade-in"
-        >
-          <div className="flex justify-between items-center mb-4">
-            <h2 className="text-xl font-bold text-blue-400">سجل المحادثات</h2>
-            <button
-              onClick={() => setShowHistory(false)}
-              className="text-gray-400 hover:text-white p-1"
-            >
-              ✕
-            </button>
-          </div>
-
-          {chatHistories.length === 0 ? (
-            <p className="text-gray-400 text-center py-4">
-              لا توجد محادثات سابقة
-            </p>
-          ) : (
-            <>
-              <button
-                onClick={deleteAllChatHistories}
-                className="mb-4 text-sm bg-red-600 hover:bg-red-700 px-3 py-2 rounded-lg w-full flex items-center justify-center"
-              >
-                🗑️ حذف الكل
-              </button>
-
-              <div className="space-y-3 max-h-[70vh] overflow-y-auto custom-scrollbar">
-                {chatHistories.map((history) => (
-                  <div
-                    key={history.id}
-                    onClick={() => loadChatHistory(history)}
-                    className={`p-3 rounded-lg cursor-pointer transition-all duration-200 ${
-                      currentChatId === history.id
-                        ? "bg-gradient-to-r from-blue-700 to-purple-700"
-                        : "bg-gray-700 hover:bg-gray-600"
-                    }`}
-                  >
-                    <div className="flex justify-between items-start">
-                      <h3 className="font-medium truncate flex-1">
-                        {history.title}
-                      </h3>
-                      <button
-                        onClick={(e) => deleteChatHistory(history.id, e)}
-                        className="text-red-400 hover:text-red-300 text-sm mr-2"
-                        title="حذف المحادثة"
-                      >
-                        ✕
-                      </button>
-                    </div>
-                    <p className="text-xs text-gray-300 mt-1">
-                      {formatDate(history.timestamp)} -{" "}
-                      {formatTime(history.timestamp)}
-                    </p>
-                    <p className="text-xs text-gray-400 mt-1">
-                      {history.messages.length} رسالة
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </>
-          )}
-        </div>
-      )}
-
       <div className="flex-1 flex flex-col max-w-4xl mx-auto w-full">
         <header className="py-4 flex justify-center items-center relative">
           <h1 className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500 text-center">
@@ -307,9 +128,6 @@ export default function GeminiChatPage() {
               <div className="text-6xl mb-4">🤖</div>
               <p className="text-2xl mb-2">مرحبًا! أنا مساعدك Gemini</p>
               <p className="text-lg">كيف يمكنني مساعدتك اليوم؟</p>
-              <p className="text-sm mt-4 text-gray-500">
-                اضغط على زر السجل أعلى اليمين لرؤية المحادثات السابقة
-              </p>
             </div>
           ) : (
             messages.map((msg, i) => (
@@ -393,19 +211,6 @@ export default function GeminiChatPage() {
       </div>
 
       <style jsx>{`
-        @keyframes fadeIn {
-          from {
-            opacity: 0;
-            transform: translateX(10px);
-          }
-          to {
-            opacity: 1;
-            transform: translateX(0);
-          }
-        }
-        .animate-fade-in {
-          animation: fadeIn 0.3s ease-out;
-        }
         .custom-scrollbar::-webkit-scrollbar {
           width: 6px;
         }

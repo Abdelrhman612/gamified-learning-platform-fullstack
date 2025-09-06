@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { User } from "@/app/dashboard/interface.user";
+import { User } from "@/app/lib/user.interface";
 import { getUsers } from "../lib/endpoints/user";
 
 export default function Leaderboard() {

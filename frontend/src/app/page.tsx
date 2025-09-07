@@ -3,20 +3,20 @@ import Link from "next/link";
 export default function Home() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 to-black text-white">
-      <section className="container mx-auto px-4 py-16 md:py-24 text-center">
+      <section className="container mx-auto px-4 py-12 md:py-16 lg:py-24 text-center">
         <div className="max-w-3xl mx-auto">
-          <h1 className="text-4xl md:text-5xl font-bold mb-6">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 md:mb-6">
             ابدأ <span className="text-blue-400">التحدي</span> وارتقِ في لوحة
             الصدارة
           </h1>
-          <p className="text-lg text-gray-300 mb-10 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-base sm:text-lg text-gray-300 mb-8 md:mb-10 max-w-2xl mx-auto leading-relaxed px-2 sm:px-0">
             منصة Gamified تقدم تجربة تعلم فريدة من خلال حل التحديات، جمع النقاط،
             والمنافسة مع الأصدقاء بطريقة ممتعة.
           </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
             <Link
               href="/challenges"
-              className="px-6 py-3 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-medium transition-colors flex items-center gap-2"
+              className="w-full sm:w-auto px-5 py-3 sm:px-6 sm:py-3 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-medium transition-colors flex items-center justify-center gap-2"
             >
               ابدأ الآن
               <svg
@@ -36,7 +36,7 @@ export default function Home() {
             </Link>
             <Link
               href="/about"
-              className="px-6 py-3 rounded-lg border border-gray-700 hover:border-gray-500 transition-colors"
+              className="w-full sm:w-auto px-5 py-3 sm:px-6 sm:py-3 rounded-lg border border-gray-700 hover:border-gray-500 transition-colors text-center"
             >
               تعرف أكثر
             </Link>
@@ -44,13 +44,13 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="container mx-auto px-4 py-16">
-        <h2 className="text-2xl md:text-3xl font-bold text-center mb-12">
+      <section className="container mx-auto px-4 py-12 md:py-16">
+        <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-center mb-8 md:mb-12">
           ماذا نقدم؟
         </h2>
-        <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-          <div className="bg-gray-800 p-6 rounded-xl border border-gray-700">
-            <div className="w-10 h-10 rounded-full bg-blue-500/20 flex items-center justify-center mb-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 max-w-5xl mx-auto">
+          <div className="bg-gray-800 p-5 sm:p-6 rounded-xl border border-gray-700">
+            <div className="w-10 h-10 rounded-full bg-blue-500/20 flex items-center justify-center mb-3 sm:mb-4 mx-auto sm:mx-0">
               <svg
                 className="w-5 h-5 text-blue-400"
                 fill="none"
@@ -66,14 +66,16 @@ export default function Home() {
                 />
               </svg>
             </div>
-            <h3 className="font-bold text-lg mb-2">تحديات متنوعة</h3>
-            <p className="text-gray-400 text-sm">
+            <h3 className="font-bold text-lg mb-2 text-center sm:text-right">
+              تحديات متنوعة
+            </h3>
+            <p className="text-gray-400 text-sm text-center sm:text-right">
               مستويات مختلفة تناسب الجميع من المبتدئين إلى المحترفين.
             </p>
           </div>
 
-          <div className="bg-gray-800 p-6 rounded-xl border border-gray-700">
-            <div className="w-10 h-10 rounded-full bg-purple-500/20 flex items-center justify-center mb-4">
+          <div className="bg-gray-800 p-5 sm:p-6 rounded-xl border border-gray-700">
+            <div className="w-10 h-10 rounded-full bg-purple-500/20 flex items-center justify-center mb-3 sm:mb-4 mx-auto sm:mx-0">
               <svg
                 className="w-5 h-5 text-purple-400"
                 fill="none"
@@ -89,14 +91,16 @@ export default function Home() {
                 />
               </svg>
             </div>
-            <h3 className="font-bold text-lg mb-2">نقاط وشارات</h3>
-            <p className="text-gray-400 text-sm">
+            <h3 className="font-bold text-lg mb-2 text-center sm:text-right">
+              نقاط وشارات
+            </h3>
+            <p className="text-gray-400 text-sm text-center sm:text-right">
               اجمع النقاط واكسب شارات تظهر مهاراتك وإنجازاتك.
             </p>
           </div>
 
-          <div className="bg-gray-800 p-6 rounded-xl border border-gray-700">
-            <div className="w-10 h-10 rounded-full bg-amber-500/20 flex items-center justify-center mb-4">
+          <div className="bg-gray-800 p-5 sm:p-6 rounded-xl border border-gray-700">
+            <div className="w-10 h-10 rounded-full bg-amber-500/20 flex items-center justify-center mb-3 sm:mb-4 mx-auto sm:mx-0">
               <svg
                 className="w-5 h-5 text-amber-400"
                 fill="none"
@@ -112,30 +116,34 @@ export default function Home() {
                 />
               </svg>
             </div>
-            <h3 className="font-bold text-lg mb-2">لوحة صدارة</h3>
-            <p className="text-gray-400 text-sm">
+            <h3 className="font-bold text-lg mb-2 text-center sm:text-right">
+              لوحة صدارة
+            </h3>
+            <p className="text-gray-400 text-sm text-center sm:text-right">
               تابع ترتيبك وتنافس مع الآخرين للوصول إلى القمة.
             </p>
           </div>
         </div>
       </section>
 
-      <section className="container mx-auto px-4 py-16 text-center">
-        <div className="max-w-2xl mx-auto bg-gray-800 p-8 rounded-xl border border-gray-700">
-          <h2 className="text-2xl md:text-3xl font-bold mb-4">جاهز للتحدي؟</h2>
-          <p className="text-gray-300 mb-6">
-            انضم إلى آلاف المستخدمين الذين يطورون مهاراتهم بطريقة ممتة
+      <section className="container mx-auto px-4 py-12 md:py-16 text-center">
+        <div className="max-w-2xl mx-auto bg-gray-800 p-6 sm:p-8 rounded-xl border border-gray-700">
+          <h2 className="text-xl sm:text-2xl md:text-3xl font-bold mb-4">
+            جاهز للتحدي؟
+          </h2>
+          <p className="text-gray-300 mb-6 text-base sm:text-lg">
+            انضم إلى آلاف المستخدمين الذين يطورون مهاراتهم بطريقة ممتعة
           </p>
           <Link
             href="/register"
-            className="inline-block px-6 py-3 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-medium transition-colors"
+            className="inline-block px-5 py-3 sm:px-6 sm:py-3 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-medium transition-colors"
           >
             سجل حسابك الآن
           </Link>
         </div>
       </section>
 
-      <footer className="container mx-auto px-4 py-8 text-center text-gray-400 text-sm border-t border-gray-800 mt-8">
+      <footer className="container mx-auto px-4 py-6 sm:py-8 text-center text-gray-400 text-sm border-t border-gray-800 mt-8">
         <p>© 2023 Gamified. جميع الحقوق محفوظة.</p>
       </footer>
     </div>

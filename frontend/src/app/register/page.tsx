@@ -24,7 +24,7 @@ export default function RegisterPage() {
       return;
     }
     try {
-      await SignUp({ name, email, password });
+      SignUp({ name, email, password });
       alert("✅ تم إنشاء الحساب بنجاح");
       router.push("/login");
     } catch (err) {

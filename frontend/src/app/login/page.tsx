@@ -13,7 +13,7 @@ export default function LoginPage() {
     e.preventDefault();
 
     try {
-      await SignIn({ email, password });
+      SignIn({ email, password });
       alert("✅ تم تسجيل الدخول بنجاح");
       router.push("/dashboard/user");
     } catch (err) {
@@ -59,11 +59,13 @@ export default function LoginPage() {
         <button
           type="button"
           onClick={() => {
-            window.location.href =
-              "https://github.com/login/oauth/authorize" +
-              "?client_id=Ov23liAUn0FyAe9Wt69T" +
-              `&redirect_uri=${getHubCallbackurl}` +
-              "&scope=user:email";
+            window.open(
+              `https://github.com/login/oauth/authorize?client_id=Ov23liAUn0FyAe9Wt69T&redirect_uri=${encodeURIComponent(
+                `${getHubCallbackurl}`
+              )}&scope=user:email`,
+              "_blank",
+              "width=600,height=700"
+            );
           }}
           className="w-full px-4 py-3 bg-gray-900 hover:bg-gray-800 border border-gray-700 rounded-lg flex items-center justify-center gap-2"
         >

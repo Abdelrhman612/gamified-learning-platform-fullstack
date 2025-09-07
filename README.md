@@ -2,6 +2,10 @@
 
 A full-stack gamified learning platform that combines education with interactive challenges, points system, and AI-powered assistance.
 
+## 🚀 Live Demo
+
+[Click here to try the project](https://gamified-learning-platform-fullstac-black.vercel.app)
+
 ## 🌟 Features
 
 ### Backend (NestJS)

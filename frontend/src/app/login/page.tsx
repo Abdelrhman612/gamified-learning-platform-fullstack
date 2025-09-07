@@ -61,7 +61,7 @@ export default function LoginPage() {
           onClick={() => {
             window.open(
               `https://github.com/login/oauth/authorize?client_id=Ov23liAUn0FyAe9Wt69T&redirect_uri=${encodeURIComponent(
-                `${getHubCallbackurl}`
+                getHubCallbackurl
               )}&scope=user:email`,
               "_blank",
               "width=600,height=700"

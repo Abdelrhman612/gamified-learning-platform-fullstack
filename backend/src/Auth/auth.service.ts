@@ -39,11 +39,7 @@ export class AuthService {
     };
     const token = generateToken(this.jwtService, payload);
 
-    return {
-      message: 'Registration successful',
-      token,
-      user: { id: newUser.id, name: newUser.name, email: newUser.email },
-    };
+    return { message: 'Registration successful', token };
   }
 
   async signIn(signInDto: SignInDto) {
